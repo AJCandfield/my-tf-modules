@@ -11,7 +11,8 @@ repos:
       - name: Lint Terraform files
         id: tflint
 
-      - name: Spell check
+      # https://www.shellcheck.net/
+      - name: Run shellcheck
         id: shellcheck
 
   - repo: local
