@@ -27,31 +27,32 @@ content: |-
 
   ## Usage
 
-  Basic usage of this module is as follows:
+  You can use this module as a `terragrunt` unit as follows:
 
   ```hcl
   terraform {
-    source = "${get_repo_root()}/terraform//modules/<cloud>/<module>"
+    source = "git::git@github.com:ajcandfield/my-tf-modules.git//modules/...?ref=vX.X.X"
   }
 
   include "root" { path = find_in_parent_folders() }
 
-  dependency "<dependency>" { config_path = "<module>" }
+  dependency "" { config_path = "" }
 
   locals {}
 
   inputs = {
   {{- if .Module.RequiredInputs }}
     # Required variables
-  {{- range .Module.RequiredInputs }}
-    {{ .Name }}  = "{{ .GetValue }}"
-  {{- end }}
+    {{- range .Module.RequiredInputs }}
+    {{ .Name | printf "%-25s" }} = "{{ .GetValue }}"
+    {{- end }}
   {{- end }}{{"\n"}}
+
   {{- if .Module.OptionalInputs }}
     # Optional variables
-  {{- range .Module.OptionalInputs }}
-    {{ .Name }}  = {{ .GetValue | printf "%s" }}
-  {{- end }}
+    {{- range .Module.OptionalInputs }}
+    {{ .Name | printf "%-25s" }} = {{ .GetValue | printf "%s" }}
+    {{- end }}
   {{- end }}
   }
   ```
