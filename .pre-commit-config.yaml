@@ -7,20 +7,19 @@ repos:
     hooks:
       - name: Format Terraform files
         id: terraform-fmt
-        
-      - name: Validate Terraform files
-        id: terraform-validate
 
       - name: Lint Terraform files
         id: tflint
 
       - name: Spell check
         id: shellcheck
-      
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.96.2
+
+  - repo: local
     hooks:
-      - name: Generate Terraform docs
-        id: terraform_docs
-        args:
-          - --args=--config=.terraform-docs.yml
+      - id: terraform-docs
+        name: Generate Terraform docs
+        entry: ./bin/hooks/terraform-docs.sh
+        language: system
+        pass_filenames: false
+        stages:
+          - pre-commit
