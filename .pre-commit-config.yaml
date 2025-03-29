@@ -1,0 +1,26 @@
+---
+repos:
+
+  # Run formatters and linters for Terraform code
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.26
+    hooks:
+      - name: Format Terraform files
+        id: terraform-fmt
+        
+      - name: Validate Terraform files
+        id: terraform-validate
+
+      - name: Lint Terraform files
+        id: tflint
+
+      - name: Spell check
+        id: shellcheck
+      
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.96.2
+    hooks:
+      - name: Generate Terraform docs
+        id: terraform_docs
+        args:
+          - --args=--config=.terraform-docs.yml
