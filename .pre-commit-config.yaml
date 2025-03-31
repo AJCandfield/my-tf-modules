@@ -1,0 +1,26 @@
+---
+repos:
+
+  # Run formatters and linters for Terraform code
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.26
+    hooks:
+      - name: Format Terraform files
+        id: terraform-fmt
+
+      - name: Lint Terraform files
+        id: tflint
+
+      # https://www.shellcheck.net/
+      - name: Run shellcheck
+        id: shellcheck
+
+  - repo: local
+    hooks:
+      - id: terraform-docs
+        name: Generate Terraform docs
+        entry: ./bin/hooks/terraform-docs.sh
+        language: system
+        pass_filenames: false
+        stages:
+          - pre-commit
